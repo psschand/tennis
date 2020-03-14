@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  book-mysql:
+    container_name: book-mysql
+    build:
+      context: .
+      dockerfile: Dockerfile-mysql
+    restart: always
+
+  book-app:
+    container_name: book-app
+    build:
+      context: .
+      dockerfile: Dockerfile-app
+    depends_on:
+      - book-mysql
+    ports:
+      - "8181:8181"
+    restart: always
